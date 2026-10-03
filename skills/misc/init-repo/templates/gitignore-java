@@ -1,0 +1,24 @@
+# ── Java : compilation & logs ─────────────────────────────────
+*.class
+*.log
+hs_err_pid*
+
+# ── Java : outils de build ────────────────────────────────────
+target/
+build/
+out/
+bin/
+.gradle/
+**/.surefire*
+**/*.iml
+
+# ── Archives (artefacts de build) ─────────────────────────────
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# ── Config locale Spring ──────────────────────────────────────
+application-local.yml

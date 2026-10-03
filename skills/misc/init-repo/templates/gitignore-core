@@ -1,0 +1,33 @@
+# ── IDE & éditeur ─────────────────────────────────────────────
+.cursor/plans/
+.vscode/
+.idea/
+.history/
+*.swp
+*~
+
+# ── Fichiers système ────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*:Zone.Identifier
+
+# ── Secrets & matériel crypto ─────────────────────────────────
+*.enc
+*.secrets
+*.cert
+*.key
+*.pem
+*.p12
+*.p8
+*.p10
+*.p7b
+*.p7c
+*.p7m
+*.p7s
+*.p7z
+*.p8z
+
+# ── Config locale / environnement ─────────────────────────────
+.env
+.env.*
+!.env.example

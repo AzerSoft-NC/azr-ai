@@ -1,0 +1,12 @@
+---
+description: Curated workspace architecture graph for navigation
+alwaysApply: true
+---
+
+# Architecture graph
+
+Before a broad workspace exploration (multiple of `ci/`, `infra/`, `src/`, platform charts), read [`context/architecture-graph.json`](../../context/architecture-graph.json).
+
+Use it as a **map, not proof**: follow `path` and open files for evidence. Filter nodes by `category` or `tags`; follow `edges` for deploy, route, and dependency links across nested remotes.
+
+If the file is missing or obviously stale (new app/chart with no node), load skill **`map-architecture`** and update the graph or ask the user to confirm the delta.

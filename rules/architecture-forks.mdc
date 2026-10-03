@@ -1,0 +1,33 @@
+---
+description: Architecture forks — load grill-me by default, ask before choosing, document decisions
+alwaysApply: true
+---
+
+# Architecture forks — grill-me by default
+
+When a task admits **multiple valid approaches** with real trade-offs, **do not choose alone**. **Load and follow the `grill-me` skill** — that is the default process, not an optional "grill style".
+
+## Triggers (examples)
+
+- **Mapper / adapter layer** vs **align models/interfaces to the API contract**
+- **Local state** vs **server refetch** as source of truth
+- **Normalize at the HTTP boundary** vs **propagate API vocabulary through the UI**
+- Any decision that is **hard to reverse** or **surprising without context** for a future reader
+
+## Procedure
+
+1. **Load `grill-me`** and follow its process (one question at a time; explore the repo before asking what the code can answer).
+2. **Name the fork** in one sentence: "Map the API response vs rename interfaces to match v1.1".
+3. **Present 2–3 options** with concrete pros/cons on *this* repo (no generic advice).
+4. **Give a recommendation** — **do not implement** until the user replies.
+5. **Wait for the answer**; one fork at a time if several are linked.
+6. **Record the decision** as soon as it is taken (per `grill-me`):
+   - Clarified term or contract → `CONTEXT.md` (glossary only)
+   - Durable trade-off (3 gates: hard to reverse, surprising without context, real compromise) → ADR under `context/adr/` (or legacy `docs/adr/` if that is what the project already uses)
+
+## Forbidden
+
+- Choosing alone when a fork is visible
+- Introducing a layer (mapper, adapter, facade) **without an explicit fork and user answer**
+- Documenting *after the fact* without having asked when the fork was visible **before** the code
+- Reinventing the `grill-me` process inline — load the skill

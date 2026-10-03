@@ -1,0 +1,17 @@
+# ── IDE & editor ──────────────────────────────────────────────
+.cursor/plans/
+.vscode/
+.idea/
+.history/
+*.swp
+*~
+
+# ── System files ──────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*:Zone.Identifier
+
+# ── Local config / environment ────────────────────────────────
+.env
+.env.*
+!.env.example
