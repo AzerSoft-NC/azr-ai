@@ -20,7 +20,7 @@ You run in a loop over one user-named target at a time. You do not narrate the c
         └── billing-cron.md
 ```
 
-Create files lazily — only when you have something proven to write. If `CONTEXT.md` exists, extend it; never fork a second glossary.
+Create files lazily — only when you have something proven to write. If `CONTEXT.md` exists, extend it; never fork a second glossary. When a parent Workspace context exists, follow layered glossary rules in [CONTEXT-FORMAT.md](./CONTEXT-FORMAT.md) (walk-up discover, scope-test write, grill on collisions).
 
 ## Documentation language
 
@@ -60,7 +60,7 @@ Completion: every statement is either cited or explicitly marked an assumption.
 
 ### 5. Document
 
-Write `context/rg/<unit>.md` following [RG-FORMAT.md](./RG-FORMAT.md). Draw the flows a human would rather see than read as mermaid charts (sequence, flowchart, state, ER) — every node and edge traced to cited code. Push any discovered domain term to `CONTEXT.md` using [CONTEXT-FORMAT.md](./CONTEXT-FORMAT.md) — the term's definition lives in the glossary, the flows live in the rg doc. One concept, one home.
+Write `context/rg/<unit>.md` following [RG-FORMAT.md](./RG-FORMAT.md). Draw the flows a human would rather see than read as mermaid charts (sequence, flowchart, state, ER) — every node and edge traced to cited code. Push any discovered domain term to the correct `CONTEXT.md` layer using [CONTEXT-FORMAT.md](./CONTEXT-FORMAT.md) (scope test: shared → Workspace context, local → Project context) — the term's definition lives in the glossary, the flows live in the rg doc. One concept, one home.
 
 Then add source comments **only where they earn it**: intent, trade-offs, constraints, or a landmine the code cannot express. Never narrate what the code already says.
 

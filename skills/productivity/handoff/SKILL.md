@@ -5,13 +5,13 @@ argument-hint: "What will the next session be used for?"
 disable-model-invocation: true
 ---
 
-Write a handoff document summarising the current conversation so a fresh agent can continue the work. Save it under the **workspace** path `.cursor/handoffs/` (create the directory if missing). Do **not** write to the OS temp directory.
+Write a handoff document summarising the current conversation so a fresh agent can continue the work.
 
-Name the file with a short slug and date, e.g. `.cursor/handoffs/YYYY-MM-DD-<topic>.md`.
+**Save to:** `context/handoffs/YYYY-MM-DD-<topic>.md` in the current workspace (create `context/handoffs/` if missing). Never `.cursor/handoffs/`, `.cursor/handsoff/`, or the OS temp directory.
 
 Include a "suggested skills" section in the document, which suggests skills that the agent should invoke.
 
-Do not duplicate content already captured in other artifacts (PRDs, plans, ADRs, issues, commits, diffs). Reference them by path or URL instead.
+Do not duplicate content already captured in other artifacts (PRDs, plans, specs, ADRs, issues, commits, diffs). Reference them by path or URL instead.
 
 Redact any sensitive information, such as API keys, passwords, or personally identifiable information.
 

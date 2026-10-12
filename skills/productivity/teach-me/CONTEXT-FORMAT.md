@@ -1,6 +1,6 @@
 # CONTEXT.md Format
 
-Canonical twin: [grill-me/CONTEXT-FORMAT.md](../grill-me/CONTEXT-FORMAT.md). Keep both files byte-identical so `teach-me` works when installed without `grill-me`.
+Canonical twin: [teach-me/CONTEXT-FORMAT.md](../teach-me/CONTEXT-FORMAT.md). Keep both files byte-identical so `grill-me` works when installed without `teach-me`.
 
 ## Structure
 
@@ -31,6 +31,21 @@ _Avoid_: Client, buyer, account
 - **Only include terms specific to this project's context.** General programming concepts (timeouts, error types, utility patterns) don't belong even if the project uses them extensively. Before adding a term, ask: is this a concept unique to this context, or a general programming concept? Only the former belongs.
 - **Group terms under subheadings** when natural clusters emerge. If all terms belong to a single cohesive area, a flat list is fine.
 
+## Layered glossaries (workspace + project)
+
+A checkout may sit under a parent workspace that also has a `CONTEXT.md`. Treat them as layers:
+
+- **Workspace context** — `CONTEXT.md` at the workspace root. Shared language not specific to one App or tool repo.
+- **Project context** — `CONTEXT.md` at an App or tool repo root. Language specific to that repo only.
+
+**Discover (walk-up):** From the cwd, walk up the directory tree and read **every** `CONTEXT.md` found. Challenge terms against the full stack.
+
+**Write (scope test):** If another repo in the same workspace would need the term with the same meaning → write to the Workspace context. Otherwise → write to the nearest Project context. Criterion: "Would another repo here need this word with the same sense?"
+
+**Collisions:** Never silently override. If the same term appears (or conflicts) at two layers — duplicate or divergent — **grill** before changing either file.
+
+**ADRs follow the same scope:** Changing the Workspace context → ADR under the workspace `context/adr/`. Changing only a Project context → ADR under that repo's `context/adr/` (or legacy `docs/adr/`).
+
 ## Single vs multi-context repos
 
 **Single context (most repos):** One `CONTEXT.md` at the repo root.
@@ -60,3 +75,5 @@ The skill infers which structure applies:
 - If neither exists, create a root `CONTEXT.md` lazily when the first term is resolved
 
 When multiple contexts exist, infer which one the current topic relates to. If unclear, ask.
+
+Layered workspace/project glossaries (walk-up) compose with the above: a repo may still be single- or multi-context *internally*, while also sitting under a Workspace context.

@@ -1,0 +1,18 @@
+---
+description: Clean code and clean architecture within the requested change only
+alwaysApply: true
+---
+
+# Clean code, minimal scope
+
+Every added or rewritten line must follow:
+
+- **Explicit names** — a variable, method, or class is understandable from its name alone.
+- **One responsibility** per new class or method, describable in one sentence without "and"; behavior that would change an existing method's responsibility belongs in a new method.
+- **Dependencies in the right direction** — keep existing coupling as-is; making domain code depend on a framework, database, or transport it was isolated from is an architecture fork, not a drive-by change.
+- **No duplication**, no repeated hard-coded values (in the diff or already in the repo), even "temporarily": reuse an existing constant or property, or introduce one; extract reusable blocks into methods without otherwise changing the original method.
+- **Remove dead code** when the change makes it unused; do not delete a publicly exposed API (endpoint, message contract, published library) without explicit review — flag it instead.
+
+## Scope
+
+Only what was requested — these rules never justify refactoring outside the ask. A method or class is not "touched" just because one of its lines changed. Pre-existing issues around the diff (duplication, magic values, mixed responsibilities, unclear names, dead code) get one sentence of notice; fix them only when asked, in a separate change. If the fix duplicates code elsewhere, say so — the user decides whether to fix both in this PR.

@@ -53,11 +53,20 @@ Create files lazily — only when you have something to write.
 If no `CONTEXT.md` exists, create one when the first term is resolved.
 If no `context/adr/` exists, create it when the first ADR is needed. Prefer `context/adr/`; if the project already uses legacy `docs/adr/`, keep writing there.
 
+### Layered glossaries (Workspace context + Project context)
+
+When the repo sits under a parent workspace that also has a `CONTEXT.md`, apply the layered rules in [CONTEXT-FORMAT.md](./CONTEXT-FORMAT.md):
+
+1. **Discover** — walk up from the cwd; read **every** `CONTEXT.md` (Workspace context + Project context, and any in between).
+2. **Write** — scope test: shared across repos → Workspace context; specific to this repo → nearest Project context.
+3. **Collisions** — never silently override; **grill** on duplicate or divergent terms across layers.
+4. **ADRs** — same scope as the glossary touched: Workspace context change → workspace `context/adr/`; else the repo's `context/adr/`.
+
 ## During the session
 
 ### Challenge against the glossary
 
-When the user uses a term that conflicts with the existing language in `CONTEXT.md`, call it out immediately. "Your glossary defines 'cancellation' as X, but you seem to mean Y — which is it?"
+When the user uses a term that conflicts with the existing language in any `CONTEXT.md` on the walk-up stack, call it out immediately. "Your glossary defines 'cancellation' as X, but you seem to mean Y — which is it?"
 
 ### Sharpen fuzzy language
 
@@ -73,7 +82,7 @@ When the user states how something works, check whether the code agrees. If you 
 
 ### Update CONTEXT.md inline
 
-When a term is resolved, update `CONTEXT.md` right there. Don't batch these up — capture them as they happen. Use the format in [CONTEXT-FORMAT.md](./CONTEXT-FORMAT.md).
+When a term is resolved, update the correct layer's `CONTEXT.md` right there (scope test above). Don't batch these up — capture them as they happen. Use the format in [CONTEXT-FORMAT.md](./CONTEXT-FORMAT.md).
 
 `CONTEXT.md` should be totally devoid of implementation details. Do not treat `CONTEXT.md` as a spec, a scratch pad, or a repository for implementation decisions. It is a glossary and nothing else.
 
@@ -85,7 +94,7 @@ Only offer to create an ADR when all three are true:
 2. **Surprising without context** — a future reader will wonder "why did they do it this way?"
 3. **The result of a real trade-off** — there were genuine alternatives and you picked one for specific reasons
 
-If any of the three is missing, skip the ADR. Use the format in [ADR-FORMAT.md](./ADR-FORMAT.md).
+If any of the three is missing, skip the ADR. Use the format in [ADR-FORMAT.md](./ADR-FORMAT.md). Write the ADR next to the glossary layer you changed (workspace `context/adr/` vs repo `context/adr/`).
 
 ### Design heuristics
 
@@ -93,7 +102,7 @@ When the model starts dictating code boundaries rather than vocabulary, these re
 
 ### When a new ADR contradicts an existing ADR
 
-Before writing, scan existing ADRs in the project's ADR directory. If the new decision contradicts or replaces an earlier one:
+Before writing, scan existing ADRs in the **same** ADR directory you are writing to (workspace or project). If the new decision contradicts or replaces an earlier one:
 
 1. **Archive the old ADR** — rename `NNNN-slug.md` → `NNNN-slug_ARCHIVED.md`
 2. **Prefix the archived file's content** with (blank line after the blockquote):
