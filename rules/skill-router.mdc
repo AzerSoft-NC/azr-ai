@@ -56,8 +56,8 @@ If a task fits a skill above, load and follow that skill. Do not reinvent its pr
 | Glossary / ubiquitous language | Project `CONTEXT.md` (via `grill-me`); workspace umbrella may add a layer |
 | Hard-to-reverse architectural decisions | Project ADRs under `context/adr/` (or legacy `docs/adr/`; 3-gate rule) |
 | Design specs (brainstorming) | `context/specs/` |
-| Implementation plans | `<workspace>/.cursor/plans/` (per IDE open folder) |
-| Session handoffs | `<workspace>/.cursor/handoffs/` (per IDE open folder) |
+| Implementation plans | `<workspace>/.cursor/plans/` (per IDE open folder; gitignored) |
+| Session handoffs | `<workspace>/.cursor/handoffs/` (per IDE open folder; gitignored) |
 | Resolved env/tooling pain | `docs/troubleshoot/TROUBLESHOOT.md` (`less-trouble`) |
 | Personal prefs, temporary context | User Rules / Cursor memory |
 | Team/project runbooks, API notes | Follow the project's existing docs layout |

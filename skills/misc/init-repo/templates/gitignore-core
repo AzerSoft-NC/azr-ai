@@ -1,5 +1,6 @@
 # ── IDE & éditeur ─────────────────────────────────────────────
 .cursor/plans/
+.cursor/handoffs/
 .vscode/
 .idea/
 .history/
