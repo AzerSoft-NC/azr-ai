@@ -129,19 +129,23 @@ patch_writing_plans_location() {
     echo "WARN: writing-plans SKILL.md missing; skip plan-location patch" >&2
     return 0
   fi
-  if grep -q 'context/plans/YYYY-MM-DD-<feature-name>\.md' "$skill"; then
+  if grep -q '\.cursor/plans/YYYY-MM-DD-<feature-name>\.md' "$skill"; then
     echo "patch writing-plans plan location (already applied)"
     return 0
   fi
   local tmp
   tmp="$(mktemp)"
+  # Upstream = docs/superpowers/plans/; prior AzerSoft patch = context/plans/ (ADR 0011).
   sed \
-    -e 's|docs/superpowers/plans/YYYY-MM-DD-<feature-name>\.md|context/plans/YYYY-MM-DD-<feature-name>.md|g' \
-    -e 's|docs/superpowers/plans/<filename>\.md|context/plans/<filename>.md|g' \
-    -e 's|docs/superpowers/plans/|context/plans/|g' \
+    -e 's|docs/superpowers/plans/YYYY-MM-DD-<feature-name>\.md|.cursor/plans/YYYY-MM-DD-<feature-name>.md|g' \
+    -e 's|docs/superpowers/plans/<filename>\.md|.cursor/plans/<filename>.md|g' \
+    -e 's|docs/superpowers/plans/|.cursor/plans/|g' \
+    -e 's|context/plans/YYYY-MM-DD-<feature-name>\.md|.cursor/plans/YYYY-MM-DD-<feature-name>.md|g' \
+    -e 's|context/plans/<filename>\.md|.cursor/plans/<filename>.md|g' \
+    -e 's|context/plans/|.cursor/plans/|g' \
     "$skill" >"$tmp"
   mv "$tmp" "$skill"
-  echo "patch writing-plans plan location → context/plans/"
+  echo "patch writing-plans plan location → .cursor/plans/"
 }
 
 patch_brainstorming_spec_location() {

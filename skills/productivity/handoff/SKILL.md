@@ -7,7 +7,7 @@ disable-model-invocation: true
 
 Write a handoff document summarising the current conversation so a fresh agent can continue the work.
 
-**Save to:** `context/handoffs/YYYY-MM-DD-<topic>.md` in the current workspace (create `context/handoffs/` if missing). Never `.cursor/handoffs/`, `.cursor/handsoff/`, or the OS temp directory.
+**Save to:** `.cursor/handoffs/YYYY-MM-DD-<topic>.md` under the **current Cursor workspace root** (the folder open in the IDE). Create `.cursor/handoffs/` if missing. Examples: umbrella workspace → `<repo>/.cursor/handoffs/`; if the user opened only `ci/` → `ci/.cursor/handoffs/`. Never `context/handoffs/`, `.cursor/handsoff/`, or the OS temp directory.
 
 Include a "suggested skills" section in the document, which suggests skills that the agent should invoke.
 
