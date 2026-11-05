@@ -55,7 +55,7 @@ Copy this checklist and track progress:
 ```
 - [ ] 1. Gather context
 - [ ] 2. Stage and validate
-- [ ] 3. Check documentation
+- [ ] 3. Check and update documentation
 - [ ] 4. Resolve type
 - [ ] 5. Draft message
 - [ ] 6. Approve
@@ -89,36 +89,47 @@ Then:
 
 Completion: staged changes exist and are safe to commit.
 
-### 3. Check documentation
+### 3. Check and update documentation
 
-**Scope:** staged index only — same boundary as the commit.
+**Scope:** staged index only — same boundary as the commit. Doc edits you make here join that same commit.
 
-**Skip** when staged changes are documentation-only (see [types.md](types.md) `docs` signals) and no executable code or config changed.
-
-**Otherwise**, discover docs the project already maintains:
+Discover docs the project already maintains:
 
 - `CONTEXT.md` (glossary)
 - ADRs under `context/adr/` (or legacy `docs/adr/` if that is what the project uses)
 - README, CHANGELOG, OpenAPI/spec files, or other doc paths already in the repo
 
-Review the **staged diff** for signals that docs should move too:
+Review the **staged diff** for signals that those docs are now wrong:
 
 | Staged diff signal | Verify |
 |--------------------|--------|
-| New or renamed domain terms, enums, status codes | `CONTEXT.md` updated or not needed |
-| Hard-to-reverse design (new layer, contract break, persistence model) | ADR exists or not warranted |
-| Public API, config, CLI, or integration surface changed | README, API docs, or runbooks reflect it |
+| New or renamed domain terms, enums, status codes | `CONTEXT.md` matches, or the term is not glossary |
+| Hard-to-reverse design (new layer, contract break, persistence model) | ADR exists, or the change does not warrant one |
+| Public API, config, CLI, integration surface, or a removed/renamed path | README, CHANGELOG, API docs, or runbooks match the tree |
 | Breaking change for other projects | Project docs state it — not only the commit body |
 
-For each gap: name the file and what is missing. Do not create new top-level docs without asking.
+A documentation-only diff (only `*.md` or doc comments; no executable code or config) still gets this check. Fix existing docs the diff makes false: broken link, deleted path, claim that no longer holds. Do not add a new ADR or glossary entry for that diff.
+
+**Gap in an existing file:** edit that file so it matches the staged change, then `git add` it. Continue to drafting. Do not stop. Do not ask the user to edit docs or re-run `/commit`.
+
+**Gap is a new top-level doc that does not exist:** do not create it. Name it in the approval prompt and continue.
+
+These are not reasons to stop:
+
+| Excuse | Do this |
+|--------|---------|
+| "User should edit the docs" | Edit the existing doc and stage it |
+| "Docs-only, so skip" | Fix existing docs the diff makes false |
+| "Unsure of the wording" | Smallest true edit; show it at approval |
+| "Waive and proceed" | No waive step. Edit, stage, continue |
 
 **Outcomes:**
 
-- **Aligned** → proceed.
-- **Gap** → stop before drafting. Present gaps; user updates docs and re-runs `/commit`, or explicitly waives (`proceed without doc update`).
+- **Aligned** → existing docs already match. Proceed.
+- **Updated** → existing docs edited and staged. Proceed.
 - **No project doc layout** → note once; proceed.
 
-Completion: every detected gap is fixed, waived by the user, or ruled out as not applicable.
+Completion: every gap in an existing doc is edited and staged, or ruled out as not applicable. `git commit` still waits for approval.
 
 ### 4. Resolve type
 
@@ -144,7 +155,7 @@ Completion: full message drafted in the required format.
 
 ### 6. Approve
 
-Present the complete message, a summary of staged files, and doc-check outcome (aligned / waived / not applicable). Wait for explicit approval.
+Present the complete message, a summary of staged files, and doc-check outcome (aligned / updated / not applicable). Wait for explicit approval.
 
 - **Approved** → proceed to commit.
 - **Edits requested** → revise and re-present.
@@ -186,7 +197,7 @@ Present drafts using this shape:
 ## Proposed commit
 
 **Staged:** <file count> files — <one-line summary>
-**Docs:** aligned | waived — <one-line note if waived or N/A>
+**Docs:** aligned | updated — <one-line note, or N/A>
 
 <type> : <subject>
 

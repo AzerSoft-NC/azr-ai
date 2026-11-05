@@ -16,6 +16,7 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- `commit` updates existing docs that the staged diff makes false, and continues. It does not stop for the user to edit those docs.
 - `handoff` writes to `context/handoffs/` (not `.cursor/handoffs/`).
 - Installer patches installed copies of `writing-plans` and `brainstorming` to use `context/plans/` and `context/specs/`.
 - [global-config/user-CURSOR.md](./global-config/user-CURSOR.md) is a pointer to `skill-router.mdc` only.
